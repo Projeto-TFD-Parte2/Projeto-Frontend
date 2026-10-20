@@ -8,8 +8,12 @@ import { useMemo } from "react";
 import getViagemColumns from "./_components/viagemColumns";
 import ViagemFiltros from "./_components/viagemFiltros";
 import InfoModal from "@/src/components/layout/modais/InfoModal";
+import FormModal from "@/src/components/layout/modais/FormModal";
+import ConfirmModal from "@/src/components/layout/modais/ConfirmModal";
 import VeiculoInfoView from "./_components/veiculoInfoView";
 import PassageirosInfoView from "./_components/passageirosInfoView";
+import ViagemEditFields from "./_components/viagemEditFields";
+import { FormProvider } from "react-hook-form";
 
 export default function ViagensPage() {
   const {
@@ -20,9 +24,20 @@ export default function ViagensPage() {
     setIsVeiculoModalOpen,
     isPassageirosModalOpen,
     setIsPassageirosModalOpen,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
     viagemSelecionada,
     handleViewVeiculo,
     handleViewPassageiros,
+    handleOpenEdit,
+    handleDelete,
+    onSubmitEdit,
+    onSubmitDelete,
+    editViagemMutation,
+    deleteViagemMutation,
+    form,
     filtros,
     handleFiltroChange,
     handleLimparFiltros,
@@ -39,8 +54,10 @@ export default function ViagensPage() {
       getViagemColumns({
         onViewVeiculo: handleViewVeiculo,
         onViewPassageiros: handleViewPassageiros,
+        onEdit: handleOpenEdit,
+        onDelete: handleDelete,
       }),
-    [handleViewVeiculo, handleViewPassageiros],
+    [handleViewVeiculo, handleViewPassageiros, handleOpenEdit, handleDelete],
   );
 
   return (
@@ -78,6 +95,7 @@ export default function ViagensPage() {
         />
       )}
 
+      {/* Modal de dados do veículo */}
       <InfoModal
         title="Dados do Veículo"
         description="Informações do veículo utilizado nessa viagem"
@@ -88,6 +106,7 @@ export default function ViagensPage() {
         {viagemSelecionada && <VeiculoInfoView veiculo={viagemSelecionada.veiculo} />}
       </InfoModal>
 
+      {/* Modal de passageiros */}
       <InfoModal
         title="Passageiros da Viagem"
         description="Pessoas vinculadas a essa viagem"
@@ -97,6 +116,49 @@ export default function ViagensPage() {
       >
         {viagemSelecionada && <PassageirosInfoView pessoas={viagemSelecionada.pessoas} />}
       </InfoModal>
+
+      {/* Modal de edição da viagem */}
+      <FormProvider {...form}>
+        <FormModal
+          title="Editar Viagem"
+          description="Altere as informações da viagem e seus passageiros vinculados"
+          open={isEditModalOpen}
+          onOpenChange={setIsEditModalOpen}
+          onSubmit={form.handleSubmit(onSubmitEdit)}
+          size="xl"
+          className="sm:max-w-2xl max-h-[90vh] overflow-y-auto"
+          loading={editViagemMutation.isPending}
+          disabled={!form.formState.isDirty}
+        >
+          <ViagemEditFields
+            veiculos={veiculos}
+            cidades={cidades}
+            passageiros={passageiros}
+          />
+        </FormModal>
+      </FormProvider>
+
+      {/* Modal de confirmação de exclusão */}
+      <ConfirmModal
+        title="Confirmação de exclusão"
+        description={
+          <>
+            Deseja realmente excluir a viagem de{" "}
+            <strong className="text-destructive">
+              {viagemSelecionada?.cidadeOrigem?.nome} para {viagemSelecionada?.cidadeDestino?.nome}
+            </strong>{" "}
+            realizada em{" "}
+            <strong>
+              {viagemSelecionada ? new Date(viagemSelecionada.dataSaida).toLocaleDateString("pt-BR") : ""}
+            </strong>
+            ? Esta ação não pode ser desfeita.
+          </>
+        }
+        open={isConfirmModalOpen}
+        onOpenChange={setIsConfirmModalOpen}
+        onClick={onSubmitDelete}
+        loading={deleteViagemMutation.isPending}
+      />
     </div>
   );
 }

@@ -35,3 +35,20 @@ export type ViagemType = {
   cidadeDestino: CidadeType;
   pessoas: ViagemPessoaType[];
 };
+
+export type ViagemParticipanteInputType = {
+  pessoaId: number;
+  tipoParticipacao: TipoParticipacao;
+  observacao?: string;
+};
+
+export type EditViagemType = {
+  veiculoId?: number;
+  cidadeOrigemId?: number;
+  cidadeDestinoId?: number;
+  dataSaida?: string;
+  dataEntrada?: string | null;
+  observacao?: string | null;
+  pessoas?: ViagemParticipanteInputType[];
+};
+
