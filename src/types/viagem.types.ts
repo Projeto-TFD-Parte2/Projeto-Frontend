@@ -44,6 +44,7 @@ export type ViagemParticipanteInputType = {
 
 export type EditViagemType = {
   veiculoId?: number;
+  motoristaId?: number;
   cidadeOrigemId?: number;
   cidadeDestinoId?: number;
   dataSaida?: string;

@@ -29,8 +29,7 @@ function toDatetimeLocal(isoString?: string | null): string {
 }
 
 export default function useViagens() {
-  const [isVeiculoModalOpen, setIsVeiculoModalOpen] = useState(false);
-  const [isPassageirosModalOpen, setIsPassageirosModalOpen] = useState(false);
+  const [isDetalhesModalOpen, setIsDetalhesModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [viagemSelecionada, setViagemSelecionada] = useState<null | ViagemType>(null);
@@ -42,6 +41,7 @@ export default function useViagens() {
     resolver: zodResolver(editViagemSchema),
     defaultValues: {
       veiculoId: undefined,
+      motoristaId: undefined,
       cidadeOrigemId: undefined,
       cidadeDestinoId: undefined,
       dataSaida: "",
@@ -73,20 +73,16 @@ export default function useViagens() {
     setPageIndex(0);
   };
 
-  const handleViewVeiculo = (viagem: ViagemType) => {
+  const handleViewDetalhes = (viagem: ViagemType) => {
     setViagemSelecionada(viagem);
-    setIsVeiculoModalOpen(true);
-  };
-
-  const handleViewPassageiros = (viagem: ViagemType) => {
-    setViagemSelecionada(viagem);
-    setIsPassageirosModalOpen(true);
+    setIsDetalhesModalOpen(true);
   };
 
   const handleOpenEdit = (viagem: ViagemType) => {
     setViagemSelecionada(viagem);
     form.reset({
       veiculoId: viagem.veiculoId,
+      motoristaId: viagem.motoristaId,
       cidadeOrigemId: viagem.cidadeOrigemId,
       cidadeDestinoId: viagem.cidadeDestinoId,
       dataSaida: toDatetimeLocal(viagem.dataSaida),
@@ -115,6 +111,7 @@ export default function useViagens() {
       id: viagemSelecionada.id,
       data: {
         veiculoId: formData.veiculoId,
+        motoristaId: formData.motoristaId,
         cidadeOrigemId: formData.cidadeOrigemId,
         cidadeDestinoId: formData.cidadeDestinoId,
         dataSaida: new Date(formData.dataSaida).toISOString(),
@@ -147,17 +144,14 @@ export default function useViagens() {
     isFetching,
     data,
     isError,
-    isVeiculoModalOpen,
-    setIsVeiculoModalOpen,
-    isPassageirosModalOpen,
-    setIsPassageirosModalOpen,
+    isDetalhesModalOpen,
+    setIsDetalhesModalOpen,
     isEditModalOpen,
     setIsEditModalOpen,
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     viagemSelecionada,
-    handleViewVeiculo,
-    handleViewPassageiros,
+    handleViewDetalhes,
     handleOpenEdit,
     handleDelete,
     onSubmitEdit,

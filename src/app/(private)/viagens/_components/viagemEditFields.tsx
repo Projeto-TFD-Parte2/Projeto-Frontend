@@ -12,15 +12,17 @@ import { VeiculoType } from "@/src/types/veiculos.types";
 import { CidadeType } from "@/src/types/cidade.types";
 import { PassageiroType } from "@/src/types/passageiros.types";
 import { TipoParticipacao } from "@/src/types/viagem.types";
+import { MotoristaType } from "@/src/types/motorista.types";
 import { EditViagemFormData } from "../_schemas/viagemSchema";
 
 interface ViagemEditFieldsProps {
   veiculos: VeiculoType[];
+  motoristas: MotoristaType[];
   cidades: CidadeType[];
   passageiros: PassageiroType[];
 }
 
-export default function ViagemEditFields({ veiculos, cidades, passageiros }: ViagemEditFieldsProps) {
+export default function ViagemEditFields({ veiculos, motoristas, cidades, passageiros }: ViagemEditFieldsProps) {
   const {
     register,
     control,
@@ -98,20 +100,36 @@ export default function ViagemEditFields({ veiculos, cidades, passageiros }: Via
           )}
         />
 
-        <Field>
-          <FieldLabel>
-            Data e Horário de Saída <span className="text-destructive">*</span>
-          </FieldLabel>
+        <Controller
+          name="motoristaId"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Field>
+              <FieldLabel>
+                Motorista <span className="text-destructive">*</span>
+              </FieldLabel>
 
-          <Input
-            type="datetime-local"
-            className="bg-muted/40 py-5 px-3"
-            {...register("dataSaida")}
-            aria-invalid={!!errors.dataSaida}
-          />
+              <Select
+                value={field.value ? String(field.value) : ""}
+                onValueChange={(val) => field.onChange(val ? Number(val) : undefined)}
+              >
+                <SelectTrigger className="w-full bg-muted/40 py-5" aria-invalid={fieldState.invalid}>
+                  <SelectValue placeholder="Selecione o motorista" />
+                </SelectTrigger>
 
-          <FieldError errors={[errors.dataSaida]} />
-        </Field>
+                <SelectContent>
+                  {motoristas.map((m) => (
+                    <SelectItem key={m.id} value={String(m.id)}>
+                      {m.nome} (CNH: {m.tipoHabilitacao})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <FieldError errors={[fieldState.error]} />
+            </Field>
+          )}
+        />
 
         <Controller
           name="cidadeOrigemId"
@@ -180,6 +198,21 @@ export default function ViagemEditFields({ veiculos, cidades, passageiros }: Via
         />
 
         <Field>
+          <FieldLabel>
+            Data e Horário de Saída <span className="text-destructive">*</span>
+          </FieldLabel>
+
+          <Input
+            type="datetime-local"
+            className="bg-muted/40 py-5 px-3"
+            {...register("dataSaida")}
+            aria-invalid={!!errors.dataSaida}
+          />
+
+          <FieldError errors={[errors.dataSaida]} />
+        </Field>
+
+        <Field>
           <FieldLabel>Data e Horário de Retorno / Entrada</FieldLabel>
 
           <Input
@@ -193,18 +226,20 @@ export default function ViagemEditFields({ veiculos, cidades, passageiros }: Via
           <FieldError errors={[errors.dataEntrada]} />
         </Field>
 
-        <Field>
-          <FieldLabel>Observação</FieldLabel>
+        <div className="sm:col-span-2">
+          <Field>
+            <FieldLabel>Observação</FieldLabel>
 
-          <Input
-            placeholder="Observações da viagem (opcional)"
-            className="bg-muted/40 py-5 px-3"
-            {...register("observacao")}
-            aria-invalid={!!errors.observacao}
-          />
+            <Input
+              placeholder="Observações da viagem (opcional)"
+              className="bg-muted/40 py-5 px-3"
+              {...register("observacao")}
+              aria-invalid={!!errors.observacao}
+            />
 
-          <FieldError errors={[errors.observacao]} />
-        </Field>
+            <FieldError errors={[errors.observacao]} />
+          </Field>
+        </div>
       </section>
 
       {/* Seção de Passageiros */}

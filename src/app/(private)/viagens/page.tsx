@@ -10,8 +10,7 @@ import ViagemFiltros from "./_components/viagemFiltros";
 import InfoModal from "@/src/components/layout/modais/InfoModal";
 import FormModal from "@/src/components/layout/modais/FormModal";
 import ConfirmModal from "@/src/components/layout/modais/ConfirmModal";
-import VeiculoInfoView from "./_components/veiculoInfoView";
-import PassageirosInfoView from "./_components/passageirosInfoView";
+import ViagemDetalhesView from "./_components/viagemDetalhesView";
 import ViagemEditFields from "./_components/viagemEditFields";
 import { FormProvider } from "react-hook-form";
 
@@ -20,17 +19,14 @@ export default function ViagensPage() {
     isLoading,
     data,
     isError,
-    isVeiculoModalOpen,
-    setIsVeiculoModalOpen,
-    isPassageirosModalOpen,
-    setIsPassageirosModalOpen,
+    isDetalhesModalOpen,
+    setIsDetalhesModalOpen,
     isEditModalOpen,
     setIsEditModalOpen,
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     viagemSelecionada,
-    handleViewVeiculo,
-    handleViewPassageiros,
+    handleViewDetalhes,
     handleOpenEdit,
     handleDelete,
     onSubmitEdit,
@@ -52,12 +48,11 @@ export default function ViagensPage() {
   const columns = useMemo(
     () =>
       getViagemColumns({
-        onViewVeiculo: handleViewVeiculo,
-        onViewPassageiros: handleViewPassageiros,
+        onViewDetalhes: handleViewDetalhes,
         onEdit: handleOpenEdit,
         onDelete: handleDelete,
       }),
-    [handleViewVeiculo, handleViewPassageiros, handleOpenEdit, handleDelete],
+    [handleViewDetalhes, handleOpenEdit, handleDelete],
   );
 
   return (
@@ -95,26 +90,15 @@ export default function ViagensPage() {
         />
       )}
 
-      {/* Modal de dados do veículo */}
+      {/* Modal de detalhes completos da viagem */}
       <InfoModal
-        title="Dados do Veículo"
-        description="Informações do veículo utilizado nessa viagem"
-        open={isVeiculoModalOpen}
-        onOpenChange={setIsVeiculoModalOpen}
-        size="lg"
-      >
-        {viagemSelecionada && <VeiculoInfoView veiculo={viagemSelecionada.veiculo} />}
-      </InfoModal>
-
-      {/* Modal de passageiros */}
-      <InfoModal
-        title="Passageiros da Viagem"
-        description="Pessoas vinculadas a essa viagem"
-        open={isPassageirosModalOpen}
-        onOpenChange={setIsPassageirosModalOpen}
+        title="Detalhes da Viagem"
+        description="Informações completas do trajeto, motorista, veículo e passageiros"
+        open={isDetalhesModalOpen}
+        onOpenChange={setIsDetalhesModalOpen}
         size="xl"
       >
-        {viagemSelecionada && <PassageirosInfoView pessoas={viagemSelecionada.pessoas} />}
+        {viagemSelecionada && <ViagemDetalhesView viagem={viagemSelecionada} />}
       </InfoModal>
 
       {/* Modal de edição da viagem */}
@@ -132,6 +116,7 @@ export default function ViagensPage() {
         >
           <ViagemEditFields
             veiculos={veiculos}
+            motoristas={motoristas}
             cidades={cidades}
             passageiros={passageiros}
           />

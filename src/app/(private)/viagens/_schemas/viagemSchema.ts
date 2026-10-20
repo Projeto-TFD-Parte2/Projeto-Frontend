@@ -12,6 +12,7 @@ export const viagemPessoaFormSchema = z.object({
 export const editViagemSchema = z
   .object({
     veiculoId: z.number({ error: "Selecione um veículo" }).int().positive("Selecione um veículo"),
+    motoristaId: z.number({ error: "Selecione um motorista" }).int().positive("Selecione um motorista"),
     cidadeOrigemId: z.number({ error: "Selecione a cidade de origem" }).int().positive("Selecione a cidade de origem"),
     cidadeDestinoId: z.number({ error: "Selecione a cidade de destino" }).int().positive("Selecione a cidade de destino"),
     dataSaida: z.string().min(1, "Informe a data e horário de saída"),
