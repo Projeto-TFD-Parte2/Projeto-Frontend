@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import { PassageiroType } from "@/src/types/passageiros.types";
+import { mascararCpf } from "@/src/utils/maskCpf";
 
 interface PassageiroColumnsProps {
   onEdit: (passageiro: PassageiroType) => void;
@@ -23,7 +24,7 @@ export default function getPassageiroColumns({
     {
       accessorKey: "cpf",
       header: "CPF",
-      cell: ({ row }) => row.original.cpf || "-",
+      cell: ({ row }) => mascararCpf(row.original.cpf),
     },
 
     {
