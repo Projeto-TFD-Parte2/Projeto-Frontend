@@ -131,7 +131,7 @@ export default function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
-                  className={`${index % 2 === 0 ? "bg-background hover:bg-muted/50" : "bg-sky-50 hover:bg-sky-100"} text-slate-900`}
+                  className={`${index % 2 === 0 ? "bg-background hover:bg-muted/50" : "bg-sky-50/70 dark:bg-slate-800/40 hover:bg-sky-100/70 dark:hover:bg-slate-800/70"} text-foreground`}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>

@@ -29,19 +29,19 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
   return (
     <div className="flex flex-col gap-5 max-h-[80vh] overflow-y-auto pr-1">
       {/* Banner de Rota e Horários */}
-      <div className="rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50/60 to-indigo-50/40 p-4 shadow-2xs">
+      <div className="rounded-xl border border-blue-100 dark:border-blue-900/40 bg-gradient-to-r from-blue-50/60 to-indigo-50/40 dark:from-blue-950/40 dark:to-indigo-950/30 p-4 shadow-2xs">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2.5">
             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-2xs">
               <MapPin className="size-5" />
             </div>
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-700">Trajeto da Viagem</span>
-              <div className="flex items-center gap-2 text-base font-bold text-slate-800">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-400">Trajeto da Viagem</span>
+              <div className="flex items-center gap-2 text-base font-bold text-slate-800 dark:text-slate-100">
                 <span>
                   {cidadeOrigem?.nome}/{cidadeOrigem?.uf}
                 </span>
-                <ArrowRight className="size-4 text-blue-600" />
+                <ArrowRight className="size-4 text-blue-600 dark:text-blue-400" />
                 <span>
                   {cidadeDestino?.nome}/{cidadeDestino?.uf}
                 </span>
@@ -49,17 +49,17 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600">
-            <div className="flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1.5 shadow-2xs border">
-              <Calendar className="size-3.5 text-blue-600" />
+          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+            <div className="flex items-center gap-1.5 rounded-md bg-white dark:bg-slate-900 px-2.5 py-1.5 shadow-2xs border dark:border-slate-800">
+              <Calendar className="size-3.5 text-blue-600 dark:text-blue-400" />
               <span>
                 <strong>Saída:</strong> {formatarDataHora(viagem.dataSaida)}
               </span>
             </div>
 
             {viagem.dataEntrada && (
-              <div className="flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1.5 shadow-2xs border">
-                <Calendar className="size-3.5 text-green-600" />
+              <div className="flex items-center gap-1.5 rounded-md bg-white dark:bg-slate-900 px-2.5 py-1.5 shadow-2xs border dark:border-slate-800">
+                <Calendar className="size-3.5 text-green-600 dark:text-green-400" />
                 <span>
                   <strong>Retorno:</strong> {formatarDataHora(viagem.dataEntrada)}
                 </span>
@@ -72,38 +72,38 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
       {/* Grid: Motorista e Veículo */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Card Motorista */}
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-          <div className="mb-3 flex items-center gap-2 border-b pb-2 text-slate-800">
-            <User className="size-4 text-blue-600" />
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-2xs transition-colors">
+          <div className="mb-3 flex items-center gap-2 border-b dark:border-slate-800 pb-2 text-slate-800 dark:text-slate-100">
+            <User className="size-4 text-blue-600 dark:text-blue-400" />
             <h4 className="text-sm font-semibold">Motorista Responsável</h4>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="col-span-2 flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Nome</span>
-              <span className="text-sm font-semibold text-slate-900">{motorista?.nome ?? "-"}</span>
+              <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{motorista?.nome ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">CPF</span>
-              <span className="text-slate-800">{motorista?.cpf ?? "-"}</span>
+              <span className="text-slate-800 dark:text-slate-300">{motorista?.cpf ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">CNH / Categoria</span>
-              <span className="text-slate-800">
+              <span className="text-slate-800 dark:text-slate-300">
                 {motorista?.tipoHabilitacao ? `Cat. ${motorista.tipoHabilitacao}` : "-"}
               </span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Vínculo</span>
-              <span className="text-slate-800">{motorista?.tipoVinculo ?? "-"}</span>
+              <span className="text-slate-800 dark:text-slate-300">{motorista?.tipoVinculo ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Validade CNH</span>
-              <span className="text-slate-800">
+              <span className="text-slate-800 dark:text-slate-300">
                 {motorista?.validadeHabilitacao
                   ? new Date(motorista.validadeHabilitacao).toLocaleDateString("pt-BR")
                   : "-"}
@@ -113,31 +113,31 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
         </div>
 
         {/* Card Veículo */}
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-          <div className="mb-3 flex items-center gap-2 border-b pb-2 text-slate-800">
-            <Bus className="size-4 text-blue-600" />
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-2xs transition-colors">
+          <div className="mb-3 flex items-center gap-2 border-b dark:border-slate-800 pb-2 text-slate-800 dark:text-slate-100">
+            <Bus className="size-4 text-blue-600 dark:text-blue-400" />
             <h4 className="text-sm font-semibold">Veículo Utilizado</h4>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="col-span-2 flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Modelo / Nome</span>
-              <span className="text-sm font-semibold text-slate-900">{veiculo?.nome ?? "-"}</span>
+              <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{veiculo?.nome ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Placa</span>
-              <span className="font-mono text-slate-800">{veiculo?.placa ?? "-"}</span>
+              <span className="font-mono text-slate-800 dark:text-slate-300">{veiculo?.placa ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Ano</span>
-              <span className="text-slate-800">{veiculo?.ano ?? "-"}</span>
+              <span className="text-slate-800 dark:text-slate-300">{veiculo?.ano ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-muted-foreground">Renavam</span>
-              <span className="font-mono text-slate-800">{veiculo?.renavam ?? "-"}</span>
+              <span className="font-mono text-slate-800 dark:text-slate-300">{veiculo?.renavam ?? "-"}</span>
             </div>
 
             <div className="flex flex-col gap-0.5">
@@ -154,8 +154,8 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
 
       {/* Observação da Viagem */}
       {viagem.observacao && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-xs text-amber-900 shadow-2xs">
-          <div className="mb-1 flex items-center gap-1.5 font-semibold text-amber-800">
+        <div className="rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/30 p-3 text-xs text-amber-900 dark:text-amber-200 shadow-2xs">
+          <div className="mb-1 flex items-center gap-1.5 font-semibold text-amber-800 dark:text-amber-300">
             <FileText className="size-3.5" />
             <span>Observações</span>
           </div>
@@ -164,11 +164,11 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
       )}
 
       {/* Seção de Passageiros */}
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-        <div className="mb-3 flex items-center justify-between border-b pb-2">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-2xs transition-colors">
+        <div className="mb-3 flex items-center justify-between border-b dark:border-slate-800 pb-2">
           <div className="flex items-center gap-2">
-            <Users className="size-4 text-blue-600" />
-            <h4 className="text-sm font-semibold text-slate-800">
+            <Users className="size-4 text-blue-600 dark:text-blue-400" />
+            <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
               Passageiros e Acompanhantes ({pessoas?.length ?? 0})
             </h4>
           </div>
@@ -185,13 +185,13 @@ export default function ViagemDetalhesView({ viagem }: ViagemDetalhesViewProps) 
             {pessoas.map((viagemPessoa) => (
               <div
                 key={viagemPessoa.id}
-                className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50/50 p-2.5 transition-colors hover:bg-slate-50"
+                className="flex items-center justify-between rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 p-2.5 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/70"
               >
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-xs font-semibold text-slate-900">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
                     {viagemPessoa.pessoa?.nome ?? `Pessoa #${viagemPessoa.pessoaId}`}
                   </span>
-                  <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500">
+                  <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400">
                     {viagemPessoa.pessoa?.cpf && <span>CPF: {viagemPessoa.pessoa.cpf}</span>}
                     {viagemPessoa.observacao && <span>Obs: {viagemPessoa.observacao}</span>}
                   </div>

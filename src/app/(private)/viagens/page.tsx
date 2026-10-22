@@ -58,7 +58,7 @@ export default function ViagensPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Viagens Cadastradas</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Viagens Cadastradas</h1>
       </div>
 
       {isError ? (

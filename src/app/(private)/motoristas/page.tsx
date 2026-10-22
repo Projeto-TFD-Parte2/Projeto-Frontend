@@ -55,7 +55,7 @@ export default function MotoristasPage() {
     <>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-bold text-slate-800">Motoristas Cadastrados</h1>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Motoristas Cadastrados</h1>
 
           <div className="flex gap-2 items-center">
             <Button

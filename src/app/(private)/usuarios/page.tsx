@@ -47,7 +47,7 @@ export default function UsuariosPage() {
     <>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-bold text-slate-800">Usuários Cadastrados</h1>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Usuários Cadastrados</h1>
 
           <Button
             className="bg-blue-700 hover:bg-blue-600 cursor-pointer p-3"

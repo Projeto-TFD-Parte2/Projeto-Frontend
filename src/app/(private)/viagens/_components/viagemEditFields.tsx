@@ -243,11 +243,11 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
       </section>
 
       {/* Seção de Passageiros */}
-      <section className="flex flex-col gap-3 rounded-lg border p-4 bg-slate-50/50">
+      <section className="flex flex-col gap-3 rounded-lg border dark:border-slate-800 p-4 bg-slate-50/50 dark:bg-slate-900/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="size-4 text-blue-600" />
-            <h3 className="text-sm font-semibold text-slate-800">
+            <Users className="size-4 text-blue-600 dark:text-blue-400" />
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
               Passageiros vinculados ({fields.length})
             </h3>
           </div>
@@ -274,11 +274,11 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
               return (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between rounded-md border bg-white p-2.5 shadow-xs"
+                  className="flex items-center justify-between rounded-md border dark:border-slate-800 bg-white dark:bg-slate-800/80 p-2.5 shadow-xs transition-colors"
                 >
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-sm font-medium text-slate-900">{pessoaNome}</span>
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{pessoaNome}</span>
+                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                       <span>{item.tipoParticipacao === TipoParticipacao.Paciente ? "Paciente" : "Acompanhante"}</span>
                       {item.observacao && <span>• Obs: {item.observacao}</span>}
                     </div>
@@ -307,13 +307,13 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
         )}
 
         {/* Adicionar Passageiro */}
-        <div className="mt-2 flex flex-col gap-2 border-t pt-3">
-          <span className="text-xs font-semibold text-slate-700">Adicionar passageiro à viagem:</span>
+        <div className="mt-2 flex flex-col gap-2 border-t dark:border-slate-800 pt-3">
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Adicionar passageiro à viagem:</span>
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-12 sm:items-end">
             <div className="sm:col-span-5">
               <Select value={novoPassageiroId} onValueChange={setNovoPassageiroId}>
-                <SelectTrigger className="w-full bg-white h-9 text-xs">
+                <SelectTrigger className="w-full bg-background h-9 text-xs">
                   <SelectValue placeholder="Selecione o passageiro" />
                 </SelectTrigger>
 
@@ -332,7 +332,7 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 value={novoTipoParticipacao}
                 onValueChange={(val) => setNovoTipoParticipacao(val as TipoParticipacao)}
               >
-                <SelectTrigger className="w-full bg-white h-9 text-xs">
+                <SelectTrigger className="w-full bg-background h-9 text-xs">
                   <SelectValue placeholder="Tipo" />
                 </SelectTrigger>
 
@@ -352,7 +352,7 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 placeholder="Obs. (opcional)"
                 value={novaObservacao}
                 onChange={(e) => setNovaObservacao(e.target.value)}
-                className="bg-white h-9 text-xs"
+                className="bg-background h-9 text-xs"
               />
             </div>
 
