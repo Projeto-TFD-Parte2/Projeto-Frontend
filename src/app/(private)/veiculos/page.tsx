@@ -17,7 +17,6 @@ export default function VeiculosPage() {
   const {
     onSubmit,
     handleDelete,
-    handleReativar,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,
@@ -41,9 +40,8 @@ export default function VeiculosPage() {
       getVehicleColumns({
         onEdit: handleOpenEdit,
         onDelete: handleDelete,
-        onReativar: handleReativar,
       }),
-    [handleOpenEdit, handleDelete, handleReativar],
+    [handleOpenEdit, handleDelete],
   );
 
   return (

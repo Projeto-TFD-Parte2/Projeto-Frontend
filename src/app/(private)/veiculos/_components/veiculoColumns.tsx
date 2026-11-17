@@ -2,14 +2,14 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Pencil, RotateCcw, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { TipoVeiculo, VeiculoType } from "@/src/types/veiculos.types";
 import Badge from "@/src/components/ui/Badge";
 
 interface VehicleColumnsProps {
   onEdit: (vehicle: VeiculoType) => void;
   onDelete: (vehicle: VeiculoType) => void;
-  onReativar?: (vehicle: VeiculoType) => void;
+
 }
 
 export default function getVehicleColumns({
