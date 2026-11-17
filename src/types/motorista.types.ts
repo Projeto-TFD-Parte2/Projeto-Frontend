@@ -23,6 +23,7 @@ export type MotoristaType = {
   validadeHabilitacao: string;
   tipoHabilitacao: TipoHabilitacao;
   tipoVinculo: TipoVinculoMotorista;
+  ativo?: boolean;
   createdAt: string;
   updatedAt: string;
 };

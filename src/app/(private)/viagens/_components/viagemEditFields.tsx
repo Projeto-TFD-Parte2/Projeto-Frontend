@@ -44,7 +44,9 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
   const dataSaidaSelecionada = watch("dataSaida");
 
   const passageirosJaAdicionadosIds = new Set(fields.map((f) => f.pessoaId));
-  const passageirosDisponiveis = passageiros.filter((p) => !passageirosJaAdicionadosIds.has(p.id));
+  const passageirosDisponiveis = passageiros.filter(
+    (p) => !passageirosJaAdicionadosIds.has(p.id) && p.ativo !== false,
+  );
 
   const handleAdicionarPassageiro = () => {
     if (!novoPassageiroId) return;
@@ -87,11 +89,13 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 </SelectTrigger>
 
                 <SelectContent>
-                  {veiculos.map((v) => (
-                    <SelectItem key={v.id} value={String(v.id)}>
-                      {v.nome} - {v.placa} ({v.tipo})
-                    </SelectItem>
-                  ))}
+                  {veiculos
+                    .filter((v) => v.ativo !== false || v.id === field.value)
+                    .map((v) => (
+                      <SelectItem key={v.id} value={String(v.id)}>
+                        {v.nome} - {v.placa} ({v.tipo}){v.ativo === false ? " (Inativo)" : ""}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
 
@@ -118,11 +122,13 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 </SelectTrigger>
 
                 <SelectContent>
-                  {motoristas.map((m) => (
-                    <SelectItem key={m.id} value={String(m.id)}>
-                      {m.nome} (CNH: {m.tipoHabilitacao})
-                    </SelectItem>
-                  ))}
+                  {motoristas
+                    .filter((m) => m.ativo !== false || m.id === field.value)
+                    .map((m) => (
+                      <SelectItem key={m.id} value={String(m.id)}>
+                        {m.nome} (CNH: {m.tipoHabilitacao}){m.ativo === false ? " (Inativo)" : ""}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
 
@@ -149,11 +155,13 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 </SelectTrigger>
 
                 <SelectContent>
-                  {cidades.map((c) => (
-                    <SelectItem key={c.id} value={String(c.id)}>
-                      {c.nome}/{c.uf}
-                    </SelectItem>
-                  ))}
+                  {cidades
+                    .filter((c) => c.ativo !== false || c.id === field.value)
+                    .map((c) => (
+                      <SelectItem key={c.id} value={String(c.id)}>
+                        {c.nome}/{c.uf}{c.ativo === false ? " (Inativa)" : ""}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
 
@@ -180,15 +188,17 @@ export default function ViagemEditFields({ veiculos, motoristas, cidades, passag
                 </SelectTrigger>
 
                 <SelectContent>
-                  {cidades.map((c) => (
-                    <SelectItem
-                      key={c.id}
-                      value={String(c.id)}
-                      disabled={c.id === cidadeOrigemIdSelecionada}
-                    >
-                      {c.nome}/{c.uf}
-                    </SelectItem>
-                  ))}
+                  {cidades
+                    .filter((c) => c.ativo !== false || c.id === field.value)
+                    .map((c) => (
+                      <SelectItem
+                        key={c.id}
+                        value={String(c.id)}
+                        disabled={c.id === cidadeOrigemIdSelecionada}
+                      >
+                        {c.nome}/{c.uf}{c.ativo === false ? " (Inativa)" : ""}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
 

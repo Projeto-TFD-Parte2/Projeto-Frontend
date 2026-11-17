@@ -4,4 +4,5 @@ export type CidadeType = {
   id: CidadeIdType;
   nome: string;
   uf: string;
+  ativo?: boolean;
 };

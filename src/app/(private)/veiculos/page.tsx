@@ -17,6 +17,7 @@ export default function VeiculosPage() {
   const {
     onSubmit,
     handleDelete,
+    handleReativar,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,
@@ -40,8 +41,9 @@ export default function VeiculosPage() {
       getVehicleColumns({
         onEdit: handleOpenEdit,
         onDelete: handleDelete,
+        onReativar: handleReativar,
       }),
-    [handleOpenEdit, handleDelete],
+    [handleOpenEdit, handleDelete, handleReativar],
   );
 
   return (
@@ -94,11 +96,11 @@ export default function VeiculosPage() {
         </FormModal>
 
         <ConfirmModal
-          title="Confirmação de exclusão"
+          title="Confirmação de desativação"
           description={
             <>
-              deseja realmente excluir o veiculo{" "}
-              <strong className="text-destructive">{veiculoSelecionado?.nome}</strong>
+              Deseja realmente desativar o veículo{" "}
+              <strong className="text-destructive">{veiculoSelecionado?.nome}</strong>?
             </>
           }
           open={isConfirmModalOpen}

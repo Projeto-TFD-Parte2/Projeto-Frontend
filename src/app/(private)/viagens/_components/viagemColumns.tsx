@@ -79,7 +79,7 @@ export default function getViagemColumns({
           </Button>
 
           <Button
-            title="Excluir viagem"
+            title="Cancelar viagem"
             className="cursor-pointer"
             size="icon"
             variant="ghost"

@@ -12,6 +12,7 @@ export type VeiculoType = {
   ano: number;
   renavam: string;
   tipo: TipoVeiculo;
+  ativo?: boolean;
   createdAt: string;
   updatedAt: string;
 };

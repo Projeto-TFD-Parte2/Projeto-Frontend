@@ -106,12 +106,23 @@ export default function usePassageiros() {
       return;
     }
 
-    await deletePassageiroMutation.mutateAsync(passageiroSelecionado.id);
-    setIsConfirmModalOpen(false);
+    try {
+      await deletePassageiroMutation.mutateAsync(passageiroSelecionado.id);
+    } finally {
+      setIsConfirmModalOpen(false);
+    }
+  };
+
+  const handleReativar = async (passageiro: PassageiroType) => {
+    await editPassageiroMutation.mutateAsync({
+      id: passageiro.id,
+      data: { ativo: true },
+    });
   };
 
   return {
     handleDelete,
+    handleReativar,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,

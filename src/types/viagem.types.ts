@@ -27,6 +27,7 @@ export type ViagemType = {
   dataSaida: string;
   dataEntrada: string | null;
   observacao: string | null;
+  ativo?: boolean;
   createdAt: string;
   updatedAt: string;
   veiculo: VeiculoType;

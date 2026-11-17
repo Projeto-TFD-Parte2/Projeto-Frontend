@@ -19,6 +19,7 @@ import CreateMotoristaFields from "./_components/createMotoristaFields";
 export default function MotoristasPage() {
   const {
     handleDelete,
+    handleReativar,
     handleOpenAdd,
     onEditSubmit,
     onCreateSubmit,
@@ -47,8 +48,9 @@ export default function MotoristasPage() {
       getMotoristaColumns({
         onEdit: handleOpenEdit,
         onDelete: handleDelete,
+        onReativar: handleReativar,
       }),
-    [handleOpenEdit, handleDelete],
+    [handleOpenEdit, handleDelete, handleReativar],
   );
 
   return (
@@ -134,11 +136,11 @@ export default function MotoristasPage() {
       )}
 
       <ConfirmModal
-        title="Confirmação de exclusão"
+        title="Confirmação de desativação"
         description={
           <>
-            deseja realmente excluir o motorista{" "}
-            <strong className="text-destructive">{motoristaSelecionado?.nome}</strong>
+            Deseja realmente desativar o motorista{" "}
+            <strong className="text-destructive">{motoristaSelecionado?.nome}</strong>?
           </>
         }
         open={isConfirmModalOpen}

@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, RotateCcw, Trash2 } from "lucide-react";
 import { MotoristaType } from "@/src/types/motorista.types";
 import { BadgeVariant } from "@/src/components/ui/Badge";
 import Badge from "@/src/components/ui/Badge";
@@ -10,9 +10,14 @@ import Badge from "@/src/components/ui/Badge";
 interface MotoristaColumnsProps {
   onEdit: (motorista: MotoristaType) => void;
   onDelete: (motorista: MotoristaType) => void;
+  onReativar?: (motorista: MotoristaType) => void;
 }
 
-export default function getMotoristaColumns({ onEdit, onDelete }: MotoristaColumnsProps): ColumnDef<MotoristaType>[] {
+export default function getMotoristaColumns({
+  onEdit,
+  onDelete,
+  onReativar,
+}: MotoristaColumnsProps): ColumnDef<MotoristaType>[] {
   return [
     {
       accessorKey: "nome",
@@ -27,6 +32,19 @@ export default function getMotoristaColumns({ onEdit, onDelete }: MotoristaColum
     {
       accessorKey: "renach",
       header: "RENACH",
+    },
+
+    {
+      accessorKey: "ativo",
+      header: "Status",
+      cell: ({ row }) => {
+        const isAtivo = row.original.ativo !== false;
+        return (
+          <Badge variant={isAtivo ? "success" : "danger"}>
+            {isAtivo ? "Ativo" : "Inativo"}
+          </Badge>
+        );
+      },
     },
 
     {
@@ -92,29 +110,45 @@ export default function getMotoristaColumns({ onEdit, onDelete }: MotoristaColum
     {
       id: "actions",
       header: "Ações",
-      cell: ({ row }) => (
-        <div className="flex gap-2">
-          <Button
-            title="Editar motorista"
-            className="cursor-pointer"
-            size="icon"
-            variant="ghost"
-            onClick={() => onEdit(row.original)}
-          >
-            <Pencil className="size-4 text-slate-600" />
-          </Button>
+      cell: ({ row }) => {
+        const isAtivo = row.original.ativo !== false;
 
-          <Button
-            title="Excluir motorista"
-            className="cursor-pointer"
-            size="icon"
-            variant="ghost"
-            onClick={() => onDelete(row.original)}
-          >
-            <Trash2 className="size-4 text-destructive/70" />
-          </Button>
-        </div>
-      ),
+        return (
+          <div className="flex gap-2">
+            <Button
+              title="Editar motorista"
+              className="cursor-pointer"
+              size="icon"
+              variant="ghost"
+              onClick={() => onEdit(row.original)}
+            >
+              <Pencil className="size-4 text-slate-600" />
+            </Button>
+
+            {isAtivo ? (
+              <Button
+                title="Desativar motorista"
+                className="cursor-pointer"
+                size="icon"
+                variant="ghost"
+                onClick={() => onDelete(row.original)}
+              >
+                <Trash2 className="size-4 text-destructive/70" />
+              </Button>
+            ) : (
+              <Button
+                title="Reativar motorista"
+                className="cursor-pointer"
+                size="icon"
+                variant="ghost"
+                onClick={() => onReativar?.(row.original)}
+              >
+                <RotateCcw className="size-4 text-emerald-600" />
+              </Button>
+            )}
+          </div>
+        );
+      },
     },
   ];
 }

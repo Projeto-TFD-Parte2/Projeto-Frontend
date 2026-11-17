@@ -15,6 +15,7 @@ import ConfirmModal from "@/src/components/layout/modais/ConfirmModal";
 export default function PassageirosPage() {
   const {
     handleDelete,
+    handleReativar,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,
@@ -39,8 +40,9 @@ export default function PassageirosPage() {
       getPassageiroColumns({
         onEdit: handleOpenEdit,
         onDelete: handleDelete,
+        onReativar: handleReativar,
       }),
-    [handleOpenEdit, handleDelete],
+    [handleOpenEdit, handleDelete, handleReativar],
   );
 
   return (
@@ -87,11 +89,11 @@ export default function PassageirosPage() {
         </FormModal>
 
         <ConfirmModal
-          title="Confirmação de exclusão"
+          title="Confirmação de desativação"
           description={
             <>
-              deseja realmente excluir o passageiro{" "}
-              <strong className="text-destructive">{passageiroSelecionado?.nome}</strong>
+              Deseja realmente desativar o passageiro{" "}
+              <strong className="text-destructive">{passageiroSelecionado?.nome}</strong>?
             </>
           }
           open={isConfirmModalOpen}

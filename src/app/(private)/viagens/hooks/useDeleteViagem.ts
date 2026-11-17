@@ -14,10 +14,12 @@ export function useDeleteViagem() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.VIAGENS });
 
-      toast.success("Viagem removida com sucesso!");
+      toast.success("Viagem cancelada com sucesso!");
     },
-    onError: () => {
-      toast.error("Ocorreu um erro ao deletar a viagem, tente novamente!");
+    onError: (error: any) => {
+      const message =
+        error?.response?.data?.message || "Ocorreu um erro ao cancelar a viagem, tente novamente!";
+      toast.error(message);
     },
   });
 }

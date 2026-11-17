@@ -14,10 +14,12 @@ export function useDeletePassageiro() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.PASSAGEIROS });
 
-      toast.success("Passageiro removido com sucesso!");
+      toast.success("Passageiro desativado com sucesso!");
     },
-    onError: () => {
-      toast.error("Ocorreu um erro ao remover o passageiro, tente novamente!");
+    onError: (error: any) => {
+      const message =
+        error?.response?.data?.message || "Ocorreu um erro ao desativar o passageiro, tente novamente!";
+      toast.error(message);
     },
   });
 }

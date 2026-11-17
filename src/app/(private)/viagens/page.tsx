@@ -125,18 +125,18 @@ export default function ViagensPage() {
 
       {/* Modal de confirmação de exclusão */}
       <ConfirmModal
-        title="Confirmação de exclusão"
+        title="Confirmação de cancelamento"
         description={
           <>
-            Deseja realmente excluir a viagem de{" "}
+            Deseja realmente cancelar a viagem de{" "}
             <strong className="text-destructive">
               {viagemSelecionada?.cidadeOrigem?.nome} para {viagemSelecionada?.cidadeDestino?.nome}
             </strong>{" "}
-            realizada em{" "}
+            marcada para{" "}
             <strong>
               {viagemSelecionada ? new Date(viagemSelecionada.dataSaida).toLocaleDateString("pt-BR") : ""}
             </strong>
-            ? Esta ação não pode ser desfeita.
+            ?
           </>
         }
         open={isConfirmModalOpen}

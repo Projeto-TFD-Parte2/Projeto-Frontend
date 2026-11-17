@@ -14,10 +14,12 @@ export function useDeleteVeiculo() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.VEICULOS });
 
-      toast.success("Veiculo removido com sucesso!");
+      toast.success("Veículo desativado com sucesso!");
     },
-    onError: () => {
-      toast.error("Ocorreu um erro ao deletar o veiculo, tente novamente!");
+    onError: (error: any) => {
+      const message =
+        error?.response?.data?.message || "Ocorreu um erro ao desativar o veículo, tente novamente!";
+      toast.error(message);
     },
   });
 }

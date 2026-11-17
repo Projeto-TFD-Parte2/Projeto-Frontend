@@ -123,12 +123,23 @@ export default function useMotoristas() {
       return;
     }
 
-    await deleteMotoristaMutation.mutateAsync(motoristaSelecionado.id);
-    setIsConfirmModalOpen(false);
+    try {
+      await deleteMotoristaMutation.mutateAsync(motoristaSelecionado.id);
+    } finally {
+      setIsConfirmModalOpen(false);
+    }
+  };
+
+  const handleReativar = async (motorista: MotoristaType) => {
+    await editMotoristaMutation.mutateAsync({
+      id: motorista.id,
+      data: { ativo: true },
+    });
   };
 
   return {
     handleDelete,
+    handleReativar,
     handleOpenAdd,
     onEditSubmit,
     onCreateSubmit,

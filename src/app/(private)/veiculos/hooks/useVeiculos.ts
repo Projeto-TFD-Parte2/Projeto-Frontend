@@ -83,13 +83,24 @@ export default function useVeiculos() {
       return;
     }
 
-    await deleteVeiculoMutation.mutateAsync(veiculoSelecionado.id);
-    setIsConfirmModalOpen(false);
+    try {
+      await deleteVeiculoMutation.mutateAsync(veiculoSelecionado.id);
+    } finally {
+      setIsConfirmModalOpen(false);
+    }
+  };
+
+  const handleReativar = async (veiculo: VeiculoType) => {
+    await editVeiculoMutation.mutateAsync({
+      id: veiculo.id,
+      data: { ativo: true },
+    });
   };
 
   return {
     onSubmit,
     handleDelete,
+    handleReativar,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,

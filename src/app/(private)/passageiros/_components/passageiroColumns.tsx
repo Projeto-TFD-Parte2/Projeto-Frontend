@@ -2,18 +2,21 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, RotateCcw, Trash2 } from "lucide-react";
 import { PassageiroType } from "@/src/types/passageiros.types";
 import { mascararCpf } from "@/src/utils/maskCpf";
+import Badge from "@/src/components/ui/Badge";
 
 interface PassageiroColumnsProps {
   onEdit: (passageiro: PassageiroType) => void;
   onDelete: (passageiro: PassageiroType) => void;
+  onReativar?: (passageiro: PassageiroType) => void;
 }
 
 export default function getPassageiroColumns({
   onEdit,
   onDelete,
+  onReativar,
 }: PassageiroColumnsProps): ColumnDef<PassageiroType>[] {
   return [
     {
@@ -59,13 +62,28 @@ export default function getPassageiroColumns({
     },
 
     {
+      accessorKey: "ativo",
+      header: "Status",
+      cell: ({ row }) => {
+        const isAtivo = row.original.ativo !== false;
+        return (
+          <Badge variant={isAtivo ? "success" : "danger"}>
+            {isAtivo ? "Ativo" : "Inativo"}
+          </Badge>
+        );
+      },
+    },
+
+    {
       id: "actions",
       header: "Ações",
       cell: ({ row }) => {
+        const isAtivo = row.original.ativo !== false;
+
         return (
           <div className="flex gap-2">
             <Button
-              title="Editar item"
+              title="Editar passageiro"
               className="cursor-pointer"
               size="icon"
               variant="ghost"
@@ -74,15 +92,27 @@ export default function getPassageiroColumns({
               <Pencil className="size-4 text-slate-600" />
             </Button>
 
-            <Button
-              title="Excluir item"
-              className="cursor-pointer"
-              size="icon"
-              variant="ghost"
-              onClick={() => onDelete(row.original)}
-            >
-              <Trash2 className="size-4 text-destructive/70" />
-            </Button>
+            {isAtivo ? (
+              <Button
+                title="Desativar passageiro"
+                className="cursor-pointer"
+                size="icon"
+                variant="ghost"
+                onClick={() => onDelete(row.original)}
+              >
+                <Trash2 className="size-4 text-destructive/70" />
+              </Button>
+            ) : (
+              <Button
+                title="Reativar passageiro"
+                className="cursor-pointer"
+                size="icon"
+                variant="ghost"
+                onClick={() => onReativar?.(row.original)}
+              >
+                <RotateCcw className="size-4 text-emerald-600" />
+              </Button>
+            )}
           </div>
         );
       },

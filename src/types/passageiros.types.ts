@@ -9,6 +9,7 @@ export type PassageiroType = {
   telefone: string | null;
   endereco: string | null;
   municipio: string | null;
+  ativo?: boolean;
   createdAt: string;
   updatedAt: string;
 };

@@ -14,10 +14,12 @@ export function useDeleteMotorista() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.MOTORISTAS });
 
-      toast.success("Motorista removido com sucesso!");
+      toast.success("Motorista desativado com sucesso!");
     },
-    onError: () => {
-      toast.error("Ocorreu um erro ao remover o motorista, tente novamente!");
+    onError: (error: any) => {
+      const message =
+        error?.response?.data?.message || "Ocorreu um erro ao desativar o motorista, tente novamente!";
+      toast.error(message);
     },
   });
 }
